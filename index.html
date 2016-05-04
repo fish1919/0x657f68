@@ -1,0 +1,70 @@
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+    <title>0x657f68</title>
+</head>
+<body id="app">
+
+    <xheader>
+    </xheader>
+    <div class="container">
+        <router-view></router-view>
+    </div>
+
+<script type="text/javascript">
+
+    const Vue = require('vue');
+    const VueRouter = require('vue-router');
+
+    const store = require('./lib/store');
+
+    const router = new VueRouter();
+
+    router.map({
+        '/browse': {
+            component: require('./components/browse'),
+            subRoutes: {
+                // Show resources.
+                '/': {
+                    component: require('./components/browse/resources')
+                },
+                // Show details.
+                '/resources/:url/:pageIdx': {
+                    component: require('./components/browse/details')
+                },
+                // Show images.
+                '/resources/:url/:pageIdx/:imageIdx': {
+                    component: require('./components/browse/images')
+                }
+            }
+        },
+        '/settings': {
+            component: require('./components/settings')
+        },
+        '/about': {
+            component: require('./components/about')
+        }
+    });
+
+    router.redirect({
+        '/': '/browse',
+        '*': '/'
+    });
+
+    const app = Vue.extend({
+        components: {
+            xheader: require('./components/header')
+        },
+        store: store,
+        vuex: {
+            getters: {
+                title: (state) => state.title
+            }
+        }
+    });
+
+    router.start(app, '#app');
+
+</script>
+</body>
+</html>
