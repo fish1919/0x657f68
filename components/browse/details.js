@@ -16,6 +16,16 @@ const template = `<div class="row">
 module.exports = Vue.extend({
     template,
     data: () => ({}),
+    route: {
+        data: function(transition) {
+
+            const url = decodeURIComponent(transition.to.params.url);
+            const pageIdx = transition.to.params.pageIdx;
+
+            this.Detail(url, pageIdx, (err, detailResult) => transition.next());
+
+        }
+    },
     vuex: {
         getters: {
             detailResult: (state) => state.runtime.detailResult
