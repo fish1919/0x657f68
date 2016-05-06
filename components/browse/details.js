@@ -2,9 +2,9 @@
 const Vue = require('vue');
 
 const template = `<div class="row">
-<div class="col-sm-4 col-md-3" v-for="image of detailResult.Images">
+<div class="col-xs-6 col-sm-4 col-md-3 col-lg-2" v-for="image of detailResult.Images">
 
-    <a class="thumbnail" style="text-align: center;" v-link="{ path: '/browse/resources/' + encodeURIComponent(detailResult.Url) + '/' + detailResult.PageIdx + '/' + $index }">
+    <a class="thumbnail" style="text-align: center;" v-link="{ path: '/browse/resources/' + encodeURIComponent(detailResult.Url) + '/' + detailResult.PageIdx + '/' + $index }" v-bind:style="{ height: imageHeight + 'px' }">
 
         <div style="margin: auto;" v-bind:style="{ backgroundImage: 'url('+image.ImageUrl+')', width: image.Width+'px', height: image.Height+'px', backgroundPositionX: '-'+image.OffsetX+'px' }"></div>
 
@@ -16,6 +16,11 @@ const template = `<div class="row">
 module.exports = Vue.extend({
     template,
     data: () => ({}),
+    computed: {
+        imageHeight: function() {
+            return Math.max.apply(null, this.detailResult.Images.map((image) => image.Height)) + 8;
+        }
+    },
     route: {
         data: function(transition) {
 
