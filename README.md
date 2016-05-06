@@ -16,7 +16,7 @@ $ cd 0x657f68 && npm install
 ## Run
 
 ```shell
-$ electron .
+$ npm start
 ```
 
 ## Roadmap
