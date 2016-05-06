@@ -2,9 +2,9 @@
 const Vue = require('vue');
 
 const template = `<div class="row">
-<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+<div class="col-xs-offset-1 col-xs-10 col-sm-offset-2 col-sm-8 col-md-offset-2 col-md-8 col-lg-12">
 
-    <img class="img-responsive center-block" v-bind:src="viewResult.ImageUrl" />
+    <img class="img-thumbnail img-responsive center-block" v-bind:src="viewResult.ImageUrl" />
 
 </div>
 </div>`;
