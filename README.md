@@ -21,7 +21,7 @@ $ electron .
 
 ## Roadmap
 
-* Loading Indicator
+* ~~Loading Indicator~~
 * Easy Login
 * Ex Support
 * Favorites
