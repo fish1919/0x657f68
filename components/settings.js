@@ -64,7 +64,7 @@ const template = `<div class="row">
         <div>
 
             <button type="button" class="btn btn-default" v-on:click="Reset()">Reset</button>
-            <button type="button" class="btn btn-primary" v-on:click="SaveSettings(form)">Save</button>
+            <button type="button" class="btn btn-primary" v-on:click="UpdateSettings(form)">Save</button>
 
         </div>
 
