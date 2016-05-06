@@ -3,11 +3,27 @@ const Vue = require('vue');
 
 const template = `<div class="row">
 
+<nav class="col-md-offset-2 col-md-8">
+
+    <ul class="pagination">
+
+        <li v-bind:class="{ disabled: browseResult.PageIdx == 0 }"><a v-on:click="BrowsePrevious()">&larr;</a></li>
+
+        <li v-for="pageIdx of pageIndices" v-bind:class="{ active: pageIdx == browseResult.PageIdx }">
+            <a v-on:click="BrowseJump(pageIdx)">{{ pageIdx }}</a>
+        </li>
+
+        <li v-bind:class="{ disabled: browseResult.PageIdx == browseResult.PageCount - 1 }"><a v-on:click="BrowseNext()">&rarr;</a></li>
+
+    </ul>
+
+</nav>
+
 <div v-if="settings.viewMode == 'list'">
 
     <div class="list-group">
 
-        <div class="list-group-item" v-for="resource of browseResult.Resources" v-on:mouseover="SetPreviewImageUrl(resource.ImageUrl)" v-on:mouseleave="SetPreviewImageUrl('')">
+        <div class="list-group-item" v-for="resource of browseResult.Resources" v-on:mouseover="PreviewSetImageUrl(resource.ImageUrl)" v-on:mouseleave="PreviewSetImageUrl('')">
 
             <span class="label label-default">{{ resource.Type }}</span>
             <span class="label label-success"><a v-link="{ path: '/browse/torrents/' + encodeURIComponent(resource.TorrentsUrl) }">Torrents</a></span>
@@ -61,6 +77,11 @@ module.exports = Vue.extend({
             }
         }
     }),
+    computed: {
+        pageIndices: function() {
+            return this.browseResult.PageIdx || this.browseResult.PageIdx == 0 ? [0, 1, 2, 3, 4, 5, 6, 7, 8].map((val) => this.browseResult.PageIdx + val - 4).filter((val) => val >= 0 && val < this.browseResult.PageCount) : [];
+        }
+    },
     created: function() {
         window.addEventListener('mousemove', this.onMouseMove.bind(this));
     },
@@ -78,7 +99,31 @@ module.exports = Vue.extend({
             }
 
         },
-        SetPreviewImageUrl: function(imageUrl) {
+        BrowsePrevious: function() {
+            this.Browse(
+                this.browseResult.IsExtra,
+                this.browseResult.Keywords,
+                this.browseResult.Filters,
+                this.browseResult.PageIdx > 0 ? this.browseResult.PageIdx - 1 : 0
+            );
+        },
+        BrowseJump: function(pageIdx) {
+            this.Browse(
+                this.browseResult.IsExtra,
+                this.browseResult.Keywords,
+                this.browseResult.Filters,
+                pageIdx
+            );
+        },
+        BrowseNext: function() {
+            this.Browse(
+                this.browseResult.IsExtra,
+                this.browseResult.Keywords,
+                this.browseResult.Filters,
+                this.browseResult.PageIdx < this.browseResult.PageCount - 1 ? this.browseResult.PageIdx + 1 : this.browseResult.PageIdx
+            );
+        },
+        PreviewSetImageUrl: function(imageUrl) {
             this.preview.imageUrl = imageUrl;
         }
     },
