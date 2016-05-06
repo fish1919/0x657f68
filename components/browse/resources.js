@@ -7,13 +7,13 @@ const template = `<div class="row">
 
     <ul class="pagination">
 
-        <li v-bind:class="{ disabled: browseResult.PageIdx == 0 }"><a v-on:click="BrowsePrevious()">&larr;</a></li>
+        <li v-bind:class="{ disabled: browseResult.PageIdx == 0 }"><a v-on:click="JumpPrevious()">&larr;</a></li>
 
         <li v-for="pageIdx of pageIndices" v-bind:class="{ active: pageIdx == browseResult.PageIdx }">
-            <a v-on:click="BrowseJump(pageIdx)">{{ pageIdx }}</a>
+            <a v-on:click="Jump(pageIdx)">{{ pageIdx }}</a>
         </li>
 
-        <li v-bind:class="{ disabled: browseResult.PageIdx == browseResult.PageCount - 1 }"><a v-on:click="BrowseNext()">&rarr;</a></li>
+        <li v-bind:class="{ disabled: browseResult.PageIdx == browseResult.PageCount - 1 }"><a v-on:click="JumpNext()">&rarr;</a></li>
 
     </ul>
 
@@ -99,29 +99,24 @@ module.exports = Vue.extend({
             }
 
         },
-        BrowsePrevious: function() {
-            this.Browse(
-                this.browseResult.IsExtra,
-                this.browseResult.Keywords,
-                this.browseResult.Filters,
-                this.browseResult.PageIdx > 0 ? this.browseResult.PageIdx - 1 : 0
-            );
+        JumpPrevious: function() {
+            this.Jump(this.browseResult.PageIdx - 1);
         },
-        BrowseJump: function(pageIdx) {
+        Jump: function(pageIdx) {
+
+            if(pageIdx < 0) pageIdx = 0;
+            if(pageIdx > this.browseResult.PageCount - 1) pageIdx = this.browseResult.PageCount - 1;
+
             this.Browse(
                 this.browseResult.IsExtra,
                 this.browseResult.Keywords,
                 this.browseResult.Filters,
                 pageIdx
             );
+
         },
-        BrowseNext: function() {
-            this.Browse(
-                this.browseResult.IsExtra,
-                this.browseResult.Keywords,
-                this.browseResult.Filters,
-                this.browseResult.PageIdx < this.browseResult.PageCount - 1 ? this.browseResult.PageIdx + 1 : this.browseResult.PageIdx
-            );
+        JumpNext: function() {
+            this.Jump(this.browseResult.PageIdx + 1);
         },
         PreviewSetImageUrl: function(imageUrl) {
             this.preview.imageUrl = imageUrl;
