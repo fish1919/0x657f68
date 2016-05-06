@@ -52,10 +52,7 @@ module.exports = Vue.extend({
                 (err, viewResult) => {
 
                     if(err) {
-
-                        alert(err);
                         return;
-
                     }
 
                     this.imageIdx = imageIdx;
@@ -78,20 +75,12 @@ module.exports = Vue.extend({
             this.Detail(url, pageIdx, (err, detailResult) => {
 
                 if(err) {
-
-                    alert(err);
                     return;
-
                 }
 
                 if(!detailResult.Images[imageIdx]) {
-
-                    this.$store.dispatch({
-                        type: 'ERROR',
-                        payload: 'ERROR_IMAGE_NOT_EXIST'
-                    });
+                    this.Error('ERROR_IMAGE_NOT_EXIST');
                     return;
-
                 }
 
                 const imageUrl = detailResult.Images[imageIdx].Url;
