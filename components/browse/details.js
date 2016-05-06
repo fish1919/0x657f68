@@ -7,13 +7,13 @@ const template = `<div class="row">
 
     <ul class="pagination">
 
-        <li v-bind:class="{ disabled: detailResult.PageIdx == 0 }"><a v-on:click="BrowsePrevious()">&larr;</a></li>
+        <li v-bind:class="{ disabled: detailResult.PageIdx == 0 }"><a v-on:click="JumpPrevious()">&larr;</a></li>
 
         <li v-for="pageIdx of pageIndices" v-bind:class="{ active: pageIdx == detailResult.PageIdx }">
-            <a v-on:click="BrowseJump(pageIdx)">{{ pageIdx }}</a>
+            <a v-on:click="Jump(pageIdx)">{{ pageIdx }}</a>
         </li>
 
-        <li v-bind:class="{ disabled: detailResult.PageIdx == detailResult.PageCount - 1 }"><a v-on:click="BrowseNext()">&rarr;</a></li>
+        <li v-bind:class="{ disabled: detailResult.PageIdx == detailResult.PageCount - 1 }"><a v-on:click="JumpNext()">&rarr;</a></li>
 
     </ul>
 
@@ -43,23 +43,19 @@ module.exports = Vue.extend({
         }
     },
     methods: {
-        BrowsePrevious: function() {
-            this.Detail(
-                this.detailResult.Url,
-                this.detailResult.PageIdx > 0 ? this.detailResult.PageIdx - 1 : 0
-            );
+        JumpPrevious: function() {
+            this.Jump(this.detailResult.PageIdx - 1);
         },
-        BrowseJump: function(pageIdx) {
-            this.Detail(
-                this.detailResult.Url,
-                pageIdx
-            );
+        Jump: function(pageIdx) {
+
+            if(pageIdx < 0) pageIdx = 0;
+            if(pageIdx > this.detailResult.PageCount - 1) pageIdx = this.detailResult.PageCount - 1;
+
+            this.Detail(this.detailResult.Url, pageIdx);
+
         },
-        BrowseNext: function() {
-            this.Detail(
-                this.detailResult.Url,
-                this.detailResult.PageIdx < this.detailResult.PageCount - 1 ? this.detailResult.PageIdx + 1 : this.detailResult.PageIdx
-            );
+        JumpNext: function() {
+            this.Jump(this.detailResult.PageIdx + 1);
         }
     },
     route: {
