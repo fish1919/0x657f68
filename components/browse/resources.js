@@ -27,13 +27,15 @@ const template = `<div class="row">
 
         <div class="thumbnail" title="{{ resource.Name }}" style="height: 276px; max-height: 276px; overflow: hidden;">
 
-            <img style="min-height: 180px; max-height: 180px;" v-bind:src="resource.ImageUrl" />
+            <a v-link="{ path: '/browse/resources/' + encodeURIComponent(resource.Url) + '/0' }">
+                <img style="min-height: 180px; max-height: 180px;" v-bind:src="resource.ImageUrl" />
+            </a>
 
             <div class="caption">
 
                 <span class="label label-default">{{ resource.Type }}</span>
                 <span class="label label-success"><a v-link="{ path: '/browse/torrents/' + encodeURIComponent(resource.TorrentsUrl) }">Torrents</a></span>
-                <span><a v-link="{ path: '/browse/resources/' + encodeURIComponent(resource.Url) + '/0' }">{{ resource.Name }}</a></span>
+                <span>{{ resource.Name }}</span>
 
             </div>
 
