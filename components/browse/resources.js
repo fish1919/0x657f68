@@ -3,7 +3,7 @@ const Vue = require('vue');
 
 const template = `<div class="row">
 
-<nav class="col-md-offset-2 col-md-8">
+<nav class="col-md-offset-2 col-md-10">
 
     <ul class="pagination">
 
@@ -39,7 +39,7 @@ const template = `<div class="row">
 
 <div v-if="settings.viewMode == 'gallery'">
 
-    <div class="col-sm-4 col-md-3" v-for="resource of browseResult.Resources">
+    <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2" v-for="resource of browseResult.Resources">
 
         <div class="thumbnail" title="{{ resource.Name }}" style="height: 276px; max-height: 276px; overflow: hidden;">
 
