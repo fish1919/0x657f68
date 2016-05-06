@@ -22,6 +22,8 @@ $ npm start
 ## Roadmap
 
 * ~~Loading Indicator~~
+* ~~Navigation~~
+* Image Lazy Loading
 * Easy Login
 * Ex Support
 * Favorites
