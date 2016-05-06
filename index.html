@@ -21,14 +21,16 @@
 
     Vue.use(VueRouter);
 
-    const router = new VueRouter();
+    const router = new VueRouter({
+        history: true
+    });
 
     router.map({
         '/browse': {
             component: require('./components/browse'),
             subRoutes: {
                 // Show resources.
-                '/': {
+                '/:pageIdx': {
                     component: require('./components/browse/resources')
                 },
                 // Show details.
@@ -51,6 +53,7 @@
 
     router.redirect({
         '/': '/browse',
+        '/browse': '/browse/0',
         '*': '/'
     });
 

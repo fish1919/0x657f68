@@ -33,7 +33,10 @@ const template = `<div class="row">
 
 module.exports = Vue.extend({
     template,
-    data: () => ({}),
+    data: () => ({
+        url: '',
+        pageIdx: 0
+    }),
     computed: {
         pageIndices: function() {
             return this.detailResult.PageIdx || this.detailResult.PageIdx == 0 ? [0, 1, 2, 3, 4, 5, 6, 7, 8].map((val) => this.detailResult.PageIdx + val - 4).filter((val) => val >= 0 && val < this.detailResult.PageCount) : [];
@@ -51,7 +54,7 @@ module.exports = Vue.extend({
             if(pageIdx < 0) pageIdx = 0;
             if(pageIdx > this.detailResult.PageCount - 1) pageIdx = this.detailResult.PageCount - 1;
 
-            this.Detail(this.detailResult.Url, pageIdx);
+            this.$route.router.go('/browse/resources/' + encodeURIComponent(this.url) + '/' + pageIdx);
 
         },
         JumpNext: function() {
@@ -62,9 +65,13 @@ module.exports = Vue.extend({
         data: function(transition) {
 
             const url = decodeURIComponent(transition.to.params.url);
-            const pageIdx = transition.to.params.pageIdx;
+            const pageIdx = parseInt(transition.to.params.pageIdx);
 
-            this.Detail(url, pageIdx, (err, detailResult) => transition.next());
+            this.Detail(url, pageIdx, (err, detailResult) => {
+
+                transition.next({ url, pageIdx });
+
+            });
 
         }
     },

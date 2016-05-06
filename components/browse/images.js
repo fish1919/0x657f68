@@ -1,6 +1,8 @@
 
 const Vue = require('vue');
 
+const Flow = require('node-flow');
+
 const template = `<div class="row">
 
 <nav class="col-md-offset-2 col-md-10">
@@ -30,6 +32,8 @@ const template = `<div class="row">
 module.exports = Vue.extend({
     template,
     data: () => ({
+        url: '',
+        pageIdx: 0,
         imageIdx: 0
     }),
     computed: {
@@ -46,19 +50,7 @@ module.exports = Vue.extend({
             if(imageIdx < 0) imageIdx = 0;
             if(imageIdx > this.detailResult.Images.length - 1) imageIdx = this.detailResult.Images.length - 1;
 
-            this.View(
-                this.detailResult.Images[imageIdx].Url,
-                this.detailResult.Url,
-                (err, viewResult) => {
-
-                    if(err) {
-                        return;
-                    }
-
-                    this.imageIdx = imageIdx;
-
-                }
-            );
+            this.$route.router.go('/browse/resources/' + encodeURIComponent(this.url) + '/' + this.pageIdx + '/' + imageIdx);
 
         },
         JumpNext: function() {
@@ -72,26 +64,42 @@ module.exports = Vue.extend({
             const pageIdx = parseInt(transition.to.params.pageIdx);
             const imageIdx = parseInt(transition.to.params.imageIdx);
 
-            this.Detail(url, pageIdx, (err, detailResult) => {
+            Flow(function*(cb) {
+
+                if(url != this.detailResult.Url) {
+
+                    var [err, detailResult] = yield this.Detail(url, pageIdx, cb);
+
+                    if(err) {
+                        return;
+                    }
+
+                    if(!detailResult.Images[imageIdx]) {
+                        this.Error('ERROR_IMAGE_NOT_EXIST');
+                        return;
+                    }
+
+                }
+                else {
+
+                    var detailResult = this.detailResult;
+
+                }
+
+                if(imageIdx < 0) imageIdx = 0;
+                if(imageIdx > detailResult.Images.length - 1) imageIdx = detailResult.Images.length - 1;
+
+                const imageUrl = detailResult.Images[imageIdx].Url;
+
+                var [err, viewResult] = yield this.View(imageUrl, url, cb);
 
                 if(err) {
                     return;
                 }
 
-                if(!detailResult.Images[imageIdx]) {
-                    this.Error('ERROR_IMAGE_NOT_EXIST');
-                    return;
-                }
+                return transition.next({ url, pageIdx, imageIdx });
 
-                const imageUrl = detailResult.Images[imageIdx].Url;
-
-                this.View(imageUrl, url, (err, viewResult) => {
-
-                    transition.next({ imageIdx });
-
-                });
-
-            });
+            }.bind(this));
 
         }
     },

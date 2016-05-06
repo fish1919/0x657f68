@@ -66,6 +66,7 @@ const template = `<div class="row">
 module.exports = Vue.extend({
     template,
     data: () => ({
+        pageIdx: 0,
         preview: {
             imageUrl: '',
             styles: {
@@ -103,23 +104,59 @@ module.exports = Vue.extend({
             this.Jump(this.browseResult.PageIdx - 1);
         },
         Jump: function(pageIdx) {
-
-            if(pageIdx < 0) pageIdx = 0;
-            if(pageIdx > this.browseResult.PageCount - 1) pageIdx = this.browseResult.PageCount - 1;
-
-            this.Browse(
-                this.browseResult.IsExtra,
-                this.browseResult.Keywords,
-                this.browseResult.Filters,
-                pageIdx
-            );
-
+            this.$route.router.go('/browse/' + pageIdx);
         },
         JumpNext: function() {
             this.Jump(this.browseResult.PageIdx + 1);
         },
         PreviewSetImageUrl: function(imageUrl) {
             this.preview.imageUrl = imageUrl;
+        }
+    },
+    route: {
+        data: function(transition) {
+
+            const pageIdx = parseInt(transition.to.params.pageIdx);
+
+            if(this.browseResult.PageCount) {
+
+                if(pageIdx < 0) pageIdx = 0;
+                if(pageIdx > this.browseResult.PageCount - 1) pageIdx = this.browseResult.PageCount - 1;
+
+                this.Browse(
+                    this.browseResult.IsExtra,
+                    this.browseResult.Keywords,
+                    this.browseResult.Filters,
+                    pageIdx,
+                    (err, browseResult) => {
+
+                        if(err) {
+                            return;
+                        }
+
+                        transition.next({ pageIdx });
+
+                    }
+                );
+
+            }
+            else {
+
+                this.Browse(false, '', {
+                        nonh: true
+                    }, 0, (err, browseResult) => {
+
+                        if(err) {
+                            return;
+                        }
+
+                        transition.next({ pageIdx });
+
+                    }
+                );
+
+            }
+
         }
     },
     vuex: {
