@@ -19,6 +19,15 @@ $ cd 0x657f68 && npm install
 $ electron .
 ```
 
+## Roadmap
+
+* Loading Indicator
+* Easy Login
+* Ex Support
+* Favorites
+* Cache System
+* Download Manager
+
 ## License
 
 MIT.
