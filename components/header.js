@@ -19,7 +19,11 @@ const template = `<nav class="navbar navbar-inverse navbar-fix-top">
         </ul>
 
         <ul class="nav navbar-nav navbar-right">
-            <li><a>{{ error }}</a></li>
+
+            <li v-if="runtime.error"><a title="{{ runtime.error }}"><span class="glyphicon glyphicon-alert"></span></a></li>
+
+            <li v-if="runtime.queue.length"><a><span class="glyphicon glyphicon-refresh spinning"></span></a></li>
+
         </ul>
 
     </div>
@@ -31,7 +35,7 @@ module.exports = Vue.extend({
     data: () => ({}),
     vuex: {
         getters: {
-            error: (state) => state.runtime.error
+            runtime: (state) => state.runtime
         }
     }
 });
