@@ -44,7 +44,7 @@ const template = `<div class="row">
         <div class="thumbnail" title="{{ resource.Name }}" style="height: 276px; max-height: 276px; overflow: hidden;">
 
             <a v-link="{ path: '/browse/resources/' + encodeURIComponent(resource.Url) + '/0' }">
-                <img style="min-height: 180px; max-height: 180px;" v-bind:src="resource.ImageUrl" />
+                <img style="height: 180px;" v-bind:src="resource.ImageUrl" />
             </a>
 
             <div class="caption">
