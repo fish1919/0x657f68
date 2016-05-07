@@ -23,7 +23,7 @@ const template = `<div class="row">
 
 </nav>
 
-<div class="col-xs-offset-1 col-xs-10 col-sm-offset-2 col-sm-8 col-md-offset-2 col-md-8 col-lg-12">
+<div class="col-xs-offset-1 col-xs-10 col-sm-offset-1 col-sm-10 col-md-offset-0 col-md-12 col-lg-offset-0 col-lg-12">
 
     <lazy-image class="img-thumbnail img-responsive center-block" :url="viewResult.ImageUrl"></lazy-image>
 
