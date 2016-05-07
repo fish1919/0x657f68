@@ -23,7 +23,7 @@ $ npm start
 
 * ~~Loading Indicator~~
 * ~~Navigation~~
-* Image Lazy Loading
+* ~~Image Progressbar~~
 * Easy Login
 * Ex Support
 * Favorites
