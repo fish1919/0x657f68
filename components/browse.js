@@ -11,6 +11,7 @@ const template = `<div>
         <ul class="pager">
 
             <li class="previous"><a href="javascript:window.history.back();">&larr; Back</a></li>
+            <li><a>{{ route }}</a></li>
             <li class="next"><a href="javascript:window.history.forward();">Forward &rarr;</a></li>
 
         </ul>
@@ -26,6 +27,16 @@ module.exports = Vue.extend({
     template,
     components: {
         xportal: require('./portal')
+    },
+    data: () => ({
+        route: ''
+    }),
+    route: {
+        data: function(transition) {
+            return transition.next({
+                route: transition.to.path
+            });
+        }
     },
     vuex: {
         getters: {
