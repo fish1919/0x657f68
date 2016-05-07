@@ -27,7 +27,7 @@ $ npm start
 * Easy Login
 * Ex Support
 * Favorites
-* Cache System
+* ~~Cache System~~
 * Download Manager
 
 ## License
