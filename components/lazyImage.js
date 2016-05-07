@@ -20,7 +20,7 @@ module.exports = Vue.extend({
     components: {
         progressbar
     },
-    props: [ 'class', 'url' ],
+    props: [ 'class', 'identity', 'url' ],
     data: () => ({
         src: '',
         progress: 0
@@ -43,7 +43,13 @@ module.exports = Vue.extend({
 
         this.$on('urlChanged', (url) => {
 
-            ImageRequest(this.url, {}, (err, size) => {
+            this.ImageRequest(this.url, {
+                _identity: this.identity
+            }, (err, size) => {
+
+                if(err) {
+                    return;
+                }
 
             }, (progress) => {
                 this.progress = progress.percentage * 100;
@@ -60,6 +66,9 @@ module.exports = Vue.extend({
 
         });
 
+    },
+    vuex: {
+        actions: require('../lib/actions')
     }
 });
 
