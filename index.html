@@ -19,6 +19,10 @@
 
     const store = require('./lib/store');
 
+    window.OpenDevTools = () => {
+        require('remote').require('electron').BrowserWindow.getFocusedWindow().openDevTools();
+    };
+
     Vue.use(VueRouter);
 
     const router = new VueRouter({

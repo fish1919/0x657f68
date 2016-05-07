@@ -24,6 +24,8 @@ const template = `<nav class="navbar navbar-inverse navbar-fix-top">
 
             <li v-if="runtime.queue.length"><a><span class="glyphicon glyphicon-refresh spinning"></span></a></li>
 
+            <li><a href="javascript: OpenDevTools();"><span class="glyphicon glyphicon-briefcase"></span></a></li>
+
         </ul>
 
     </div>
