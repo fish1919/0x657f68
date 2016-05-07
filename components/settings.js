@@ -28,6 +28,26 @@ const template = `<div class="row">
 
                 </div>
 
+                <div class="form-inline">
+
+                    <div class="form-group">
+
+                        <label>Username: </label>
+                        <input type="text" class="form-control" v-model="login.username" />
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>Password: </label>
+                        <input type="text" class="form-control" v-model="login.password" />
+
+                    </div>
+
+                    <button type="button" class="btn btn-default" v-on:click="Lucky()">Lucky!</button>
+
+                </div>
+
             </panel>
 
             <panel header="Network" :is-open="true">
@@ -79,6 +99,10 @@ module.exports = Vue.extend({
         accordion, panel
     },
     data: () => ({
+        login: {
+            username: '',
+            password: ''
+        },
         form: {
             ipb_member_id: '',
             ipb_pass_hash: '',
@@ -87,6 +111,29 @@ module.exports = Vue.extend({
         }
     }),
     methods: {
+        Lucky: function() {
+
+            this.Login(this.username, this.password, (err, loginResult) => {
+
+                if(err) {
+                    return;
+                }
+
+                for(let cookie of loginResult.Jar.cookies) {
+
+                    if(cookie.key == 'ipb_member_id') {
+                        this.form.ipb_member_id = cookie.value;
+                    }
+
+                    if(cookie.key == 'ipb_pass_hash') {
+                        this.form.ipb_pass_hash = cookie.value;
+                    }
+
+                }
+
+            });
+
+        },
         Reset: function() {
             this.form = Object.assign({}, this.settings);
         }
