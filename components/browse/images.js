@@ -65,7 +65,7 @@ module.exports = Vue.extend({
     route: {
         data: function(transition) {
 
-            const url = decodeURIComponent(transition.to.params.url);
+            const url = decodeURIComponent(decodeURIComponent(transition.to.params.url));
             const pageIdx = parseInt(transition.to.params.pageIdx);
             const imageIdx = parseInt(transition.to.params.imageIdx);
 

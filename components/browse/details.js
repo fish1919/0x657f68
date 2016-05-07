@@ -64,7 +64,9 @@ module.exports = Vue.extend({
     route: {
         data: function(transition) {
 
-            const url = decodeURIComponent(transition.to.params.url);
+            // FIXME: The encoded params are encoded again.
+            // See: https://github.com/vuejs/vue-router/issues/480.
+            const url = decodeURIComponent(decodeURIComponent(transition.to.params.url));
             const pageIdx = parseInt(transition.to.params.pageIdx);
 
             this.Detail(url, pageIdx, (err, detailResult) => {
