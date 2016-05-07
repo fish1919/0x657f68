@@ -13,8 +13,6 @@ app.on('window-all-closed', () => {
 
 app.on('ready', function() {
 
-    app.commandLine.appendSwitch('js-flags', '--harmony-destructuring');
-
     mainWindow = new BrowserWindow({
         width: 800,
         height: 600
