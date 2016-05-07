@@ -20,8 +20,10 @@
   "dependencies": {
     "cheerio": "^0.20.0",
     "debug": "^2.2.0",
+    "image-size-stream": "^1.1.0",
     "node-flow": "github:evshiron/node-flow",
     "request": "^2.72.0",
+    "request-progress": "^2.0.1",
     "vue": "^1.0.21",
     "vue-router": "^0.7.13",
     "vue-strap": "^1.0.7",
