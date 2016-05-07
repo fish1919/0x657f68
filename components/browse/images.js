@@ -3,6 +3,8 @@ const Vue = require('vue');
 
 const Flow = require('node-flow');
 
+const LazyImage = require('../lazyImage');
+
 const template = `<div class="row">
 
 <nav class="col-md-offset-2 col-md-10">
@@ -23,7 +25,7 @@ const template = `<div class="row">
 
 <div class="col-xs-offset-1 col-xs-10 col-sm-offset-2 col-sm-8 col-md-offset-2 col-md-8 col-lg-12">
 
-    <img class="img-thumbnail img-responsive center-block" v-bind:src="viewResult.ImageUrl" />
+    <lazy-image class="img-thumbnail img-responsive center-block" :url="viewResult.ImageUrl"></lazy-image>
 
 </div>
 
@@ -31,6 +33,9 @@ const template = `<div class="row">
 
 module.exports = Vue.extend({
     template,
+    components: {
+        LazyImage
+    },
     data: () => ({
         url: '',
         pageIdx: 0,
