@@ -1,6 +1,8 @@
 
 const Vue = require('vue');
 
+const LazyImage = require('../lazyImage');
+
 const template = `<div class="row">
 
 <nav class="col-md-offset-2 col-md-10">
@@ -44,7 +46,7 @@ const template = `<div class="row">
         <div class="thumbnail" title="{{ resource.Name }}" style="height: 276px; max-height: 276px; overflow: hidden;">
 
             <a v-link="{ path: '/browse/resources/' + encodeURIComponent(resource.Url) + '/0' }">
-                <img style="height: 180px;" v-bind:src="resource.ImageUrl" />
+                <lazy-image class="center-block" style="height: 180px;" :identity="resource.ImageUrl" :url="resource.ImageUrl"></lazy-image>
             </a>
 
             <div class="caption">
@@ -65,6 +67,9 @@ const template = `<div class="row">
 
 module.exports = Vue.extend({
     template,
+    components: {
+        LazyImage
+    },
     data: () => ({
         pageIdx: 0,
         preview: {

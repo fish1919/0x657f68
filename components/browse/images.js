@@ -25,7 +25,7 @@ const template = `<div class="row">
 
 <div class="col-xs-offset-1 col-xs-10 col-sm-offset-1 col-sm-10 col-md-offset-0 col-md-12 col-lg-offset-0 col-lg-12">
 
-    <lazy-image class="img-thumbnail img-responsive center-block" :identity="$route.path" :url="viewResult.ImageUrl"></lazy-image>
+    <lazy-image class="img-thumbnail img-responsive center-block" :identity="$route.path" :url="viewResult.ImageUrl" progressbar></lazy-image>
 
 </div>
 
