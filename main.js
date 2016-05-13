@@ -1,9 +1,7 @@
 
 const electron = require('electron');
 
-const BrowserWindow = electron.BrowserWindow;
-
-const app = electron.app;
+const { app, BrowserWindow } = electron;
 
 app.on('window-all-closed', () => {
 
