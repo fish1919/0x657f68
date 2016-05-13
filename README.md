@@ -25,7 +25,7 @@ $ npm start
 * ~~Navigation~~
 * ~~Image Progressbar~~
 * Easy Login
-* Ex Support
+* ~~Ex Support~~
 * Favorites
 * ~~Cache System~~
 * Download Manager
