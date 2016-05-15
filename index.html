@@ -14,6 +14,8 @@
 
 <script type="text/javascript">
 
+    const ContextMenu = require('electron-contextmenu-middleware');
+
     const Vue = require('vue');
     const VueRouter = require('vue-router');
 
@@ -22,6 +24,9 @@
     window.OpenDevTools = () => {
         require('remote').require('electron').BrowserWindow.getFocusedWindow().openDevTools();
     };
+
+    ContextMenu.use(require('./js/menus/image'));
+    ContextMenu.activate();
 
     Vue.use(VueRouter);
 
