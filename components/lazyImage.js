@@ -3,8 +3,6 @@ const Vue = require('vue');
 
 const { progressbar } = require('vue-strap');
 
-const { ImageRequest } = require('../lib/hentai');
-
 const template = `<div>
 
 <div class="progress" v-if="progressbar && progress < 100">
@@ -94,7 +92,7 @@ module.exports = Vue.extend({
 
     },
     vuex: {
-        actions: require('../lib/actions')
+        actions: require('../js/actions')
     }
 });
 

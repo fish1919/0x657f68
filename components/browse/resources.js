@@ -169,6 +169,6 @@ module.exports = Vue.extend({
             browseResult: (state) => state.runtime.browseResult,
             settings: (state) => state.settings
         },
-        actions: require('../../lib/actions')
+        actions: require('../../js//actions')
     }
 });

@@ -113,6 +113,6 @@ module.exports = Vue.extend({
             detailResult: (state) => state.runtime.detailResult,
             viewResult: (state) => state.runtime.viewResult
         },
-        actions: require('../../lib/actions')
+        actions: require('../../js/actions')
     }
 });

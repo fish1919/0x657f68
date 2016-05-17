@@ -68,6 +68,6 @@ module.exports = Vue.extend({
         getters: {
 
         },
-        actions: require('../lib/actions')
+        actions: require('../js/actions')
     }
 });

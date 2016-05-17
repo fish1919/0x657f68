@@ -7,7 +7,7 @@ const { ipcRenderer } = require('electron');
 
 const {
     ImageRequest: HentaiImageRequest,
-} = require('./hentai');
+} = require('../lib/hentai');
 
 const Error = (store, err) => {
 

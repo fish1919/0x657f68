@@ -151,6 +151,6 @@ module.exports = Vue.extend({
         getters: {
             settings: (state) => state.settings
         },
-        actions: require('../lib/actions')
+        actions: require('../js/actions')
     }
 });
