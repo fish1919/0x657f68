@@ -59,14 +59,17 @@
             subRoutes: {
                 // Show resources.
                 '/:pageIdx': {
+                    name: 'Browse',
                     component: require('./components/browse/resources')
                 },
                 // Show details.
                 '/resources/:url/:pageIdx': {
+                    name: 'Detail',
                     component: require('./components/browse/details')
                 },
                 // Show images.
                 '/resources/:url/:pageIdx/:imageIdx': {
+                    name: 'View',
                     component: require('./components/browse/images')
                 }
             }
