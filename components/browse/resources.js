@@ -123,15 +123,19 @@ module.exports = Vue.extend({
 
             const pageIdx = parseInt(transition.to.params.pageIdx);
 
+            const useExtra = transition.to.query.useExtra ? transition.to.query.useExtra == 'true' : null;
+            const keywords = transition.to.query.keywords ? transition.to.query.keywords : null;
+            const filters = transition.to.query.filters ? JSON.parse(decodeURIComponent(transition.to.query.filters)) : null;
+
             if(this.browseResult.PageCount) {
 
                 if(pageIdx < 0) pageIdx = 0;
                 if(pageIdx > this.browseResult.PageCount - 1) pageIdx = this.browseResult.PageCount - 1;
 
                 this.Browse(
-                    this.browseResult.IsExtra,
-                    this.browseResult.Keywords,
-                    this.browseResult.Filters,
+                    useExtra ? useExtra : this.browseResult.IsExtra,
+                    keywords ? keywords : this.browseResult.Keywords,
+                    filters ? filters : this.browseResult.Filters,
                     pageIdx,
                     (err, browseResult) => {
 

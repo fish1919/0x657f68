@@ -34,7 +34,7 @@ const template = `<div class="row">
                 <input type="text" class="form-control" v-model="pageIdx" placeholder="PageIndex" style="width: 30%;" />
 
                 <div class="input-group-btn">
-                    <button type="button" class="btn btn-primary" v-on:click="Browse(useExtra, keywords, filters, pageIdx)">Browse</button>
+                    <button type="button" class="btn btn-primary" v-on:click="Search()">Browse</button>
                 </div>
 
             </div>
@@ -62,8 +62,21 @@ module.exports = Vue.extend({
             misc: false
         },
         keywords: '',
-        pageIdx: 0
+        pageIdx: '0'
     }),
+    methods: {
+        Search: function() {
+
+            this.$route.router.go({
+                path: `/browse/${ this.pageIdx }`,
+                query: {
+                    useExtra: this.useExtra,
+                    keywords: this.keywords,
+                    filters: JSON.stringify(this.filters),
+                }
+            })
+        }
+    },
     vuex: {
         getters: {
 
