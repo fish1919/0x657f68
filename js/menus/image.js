@@ -3,6 +3,8 @@ const { dialog } = require('electron').remote;
 
 const { writeFileSync } = require('fs');
 
+const { ImageRequest } = require('../../lib/hentai');
+
 const ImageMiddleware = ({
     elm,
     menu,
@@ -30,7 +32,32 @@ const ImageMiddleware = ({
                     defaultPath: 'image.jpg'
                 });
 
-                writeFileSync(path, new Buffer(node.src.split(',').slice(1).join(''), 'base64'));
+                if(node.src.startsWith('data')) {
+
+                    let err = writeFileSync(path, new Buffer(node.src.split(',').slice(1).join(''), 'base64'));
+
+                    if(err) {
+                        return alert(err);
+                    }
+
+                }
+                else if(node.src.startsWith('ximage') || node.src.startsWith('http')) {
+
+                    ImageRequest(node.src.replace('ximage://', 'http://'), {}, () => {}, () => {}, (err, id, res, body) => {
+
+                        if(err) {
+                            return alert(err.toString());
+                        }
+
+                        var err = writeFileSync(path, body);
+
+                        if(err) {
+                            return alert(err);
+                        }
+
+                    });
+
+                }
 
             }
         }

@@ -69,7 +69,7 @@ module.exports = Vue.extend({
 
             }, (progress) => {
                 this.progress = progress.percentage * 100;
-            }, (err, res, body) => {
+            }, (err, id, res, body) => {
 
                 if(err) {
                     return;

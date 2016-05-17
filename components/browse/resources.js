@@ -46,7 +46,7 @@ const template = `<div class="row">
         <div class="thumbnail" title="{{ resource.Name }}" style="height: 276px; max-height: 276px; overflow: hidden;">
 
             <a v-link="{ path: '/browse/resources/' + encodeURIComponent(resource.Url) + '/0' }">
-                <lazy-image class="center-block" style="height: 180px;" :identity="resource.ImageUrl" :url="resource.ImageUrl"></lazy-image>
+                <img class="center-block" v-bind:src="resource.ImageUrl.replace('http://', 'ximage://')" style="height: 180px;" />
             </a>
 
             <div class="caption">

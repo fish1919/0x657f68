@@ -14,12 +14,31 @@
 
 <script type="text/javascript">
 
+    const { existsSync, readFileSync, writeFileSync } = require('fs');
+
     const ContextMenu = require('electron-contextmenu-middleware');
 
     const Vue = require('vue');
     const VueRouter = require('vue-router');
 
     const store = require('./lib/store');
+    const actions = require('./lib/actions');
+
+    const FILE_SETTINGS = './settings.json';
+
+    // Load settings.
+    if(existsSync(FILE_SETTINGS)) {
+
+        actions.UpdateSettings(store, JSON.parse(readFileSync(FILE_SETTINGS)));
+
+    }
+
+    // Save settings.
+    window.onbeforeunload = (event) => {
+
+        writeFileSync(FILE_SETTINGS, JSON.stringify(store.state.settings));
+
+    };
 
     window.OpenDevTools = () => {
         require('remote').require('electron').BrowserWindow.getFocusedWindow().openDevTools();
