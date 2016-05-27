@@ -3,7 +3,7 @@ const { basename } = require('path');
 
 const Vue = require('vue');
 
-const Flow = require('node-flow');
+const Flow = require('@evshiron/node-flow');
 
 const LazyImage = require('../lazyImage');
 
