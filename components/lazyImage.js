@@ -9,7 +9,7 @@ const template = `<div>
   <progressbar :type="progress < 90 ? 'primary' : 'success'" :now="progress" striped animated></progressbar>
 </div>
 
-<img v-el:image class="{{ class }}" v-bind:src="src" v-bind:style="style" />
+<img v-el:image class="{{ class }}" v-bind:src="src" alt="{{ alt }}" v-bind:style="style" />
 
 </div>`;
 
@@ -20,6 +20,9 @@ module.exports = Vue.extend({
     },
     props: {
         class: {
+            type: String
+        },
+        alt: {
             type: String
         },
         style: {

@@ -1,6 +1,7 @@
 
 const { dialog } = require('electron').remote;
 
+const { basename } = require('path');
 const { writeFileSync } = require('fs');
 
 const { ImageRequest } = require('../../lib/hentai');
@@ -15,7 +16,7 @@ const ImageMiddleware = ({
 
     const template = [
         {
-            label: 'Save image as',
+            label: 'Save image as...',
             click: (menuItem, focusedWindow) => {
 
                 var path = dialog.showSaveDialog({
@@ -29,8 +30,12 @@ const ImageMiddleware = ({
                             extensions: ['*']
                         }
                     ],
-                    defaultPath: 'image.jpg'
+                    defaultPath: node.src.startsWith('ximage') || node.src.startsWith('http') ? basename(node.src) : (node.alt ? node.alt : 'image.jpg')
                 });
+
+                if(!path) {
+                    return;
+                }
 
                 if(node.src.startsWith('data')) {
 
