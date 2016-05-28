@@ -82,6 +82,7 @@ module.exports = Vue.extend({
                     var [err, detailResult] = yield this.Detail(url, pageIdx, cb);
 
                     if(err) {
+                        this.Error(err);
                         return;
                     }
 
@@ -105,6 +106,7 @@ module.exports = Vue.extend({
                 var [err, viewResult] = yield this.View(imageUrl, url, cb);
 
                 if(err) {
+                    this.Error(err);
                     return;
                 }
 

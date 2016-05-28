@@ -48,10 +48,6 @@ module.exports = Vue.extend({
     watch: {
         url: function(newValue, oldValue) {
 
-            if(newValue == oldValue) {
-                return;
-            }
-
             return this.$emit('urlChanged', newValue);
 
         }
@@ -86,12 +82,7 @@ module.exports = Vue.extend({
         // The url isn't updated when ready.
         // See also: https://github.com/vuejs/vue/issues/2397.
 
-        if(this.url && this.url.startsWith('http')) {
-            load();
-        }
-        else {
-            this.$on('urlChanged', (url) => load());
-        }
+        this.$on('urlChanged', (url) => load());
 
     },
     vuex: {
