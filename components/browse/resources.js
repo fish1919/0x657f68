@@ -133,7 +133,7 @@ module.exports = Vue.extend({
                 if(pageIdx > this.browseResult.PageCount - 1) pageIdx = this.browseResult.PageCount - 1;
 
                 this.Browse(
-                    useExtra ? useExtra : this.browseResult.IsExtra,
+                    useExtra != null ? useExtra : this.browseResult.IsExtra,
                     keywords ? keywords : this.browseResult.Keywords,
                     filters ? filters : this.browseResult.Filters,
                     pageIdx,
