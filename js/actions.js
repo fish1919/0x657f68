@@ -21,10 +21,10 @@ const UpdateSettings = (store, settings, callback) => {
 
     store.dispatch('SETTINGS_UPDATE', Object.assign({}, settings));
 
-    ipcRenderer.sendSync('setCookies', {
+    ipcRenderer.sendSync('setCookies', JSON.parse(JSON.stringify({
         ipb_member_id: store.state.settings.ipb_member_id ? store.state.settings.ipb_member_id : null,
         ipb_pass_hash: store.state.settings.ipb_pass_hash ? store.state.settings.ipb_pass_hash : null
-    });
+    })));
 
     ipcRenderer.sendSync('setProxy', store.state.settings.proxy ? store.state.settings.proxy : "");
 
@@ -36,9 +36,9 @@ const Login = (store, username, password, callback) => {
 
     store.dispatch('QUEUE_PUSH');
 
-    ipcRenderer.send('login', {
+    ipcRenderer.send('login', JSON.parse(JSON.stringify({
         username, password
-    });
+    })));
 
     ipcRenderer.once('login', (event, err, loginResult) => {
 
@@ -59,9 +59,9 @@ const Browse = (store, useExtra, keywords, filters, pageIdx, callback) => {
 
     store.dispatch('QUEUE_PUSH');
 
-    ipcRenderer.send('browse', {
-        useExtra, keywords, pageIdx, filters
-    });
+    ipcRenderer.send('browse', JSON.parse(JSON.stringify({
+        useExtra, keywords, filters, pageIdx
+    })));
 
     ipcRenderer.once('browse', (event, err, browseResult) => {
 
@@ -84,9 +84,9 @@ const Detail = (store, url, pageIdx, callback) => {
 
     store.dispatch('QUEUE_PUSH');
 
-    ipcRenderer.send('detail', {
+    ipcRenderer.send('detail', JSON.parse(JSON.stringify({
         url, pageIdx
-    });
+    })));
 
     ipcRenderer.once('detail', (event, err, detailResult) => {
 
@@ -109,9 +109,9 @@ const View = (store, url, refererUrl, callback) => {
 
     store.dispatch('QUEUE_PUSH');
 
-    ipcRenderer.send('view', {
+    ipcRenderer.send('view', JSON.parse(JSON.stringify({
         url, refererUrl
-    });
+    })));
 
     ipcRenderer.once('view', (event, err, viewResult) => {
 
